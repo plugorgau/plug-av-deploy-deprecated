@@ -1,0 +1,31 @@
+---
+# file: site.yml
+- hosts: camera
+  become: yes
+  become_user: root
+  become_method: sudo
+
+ 
+  tasks:
+  - name: install joe
+    apt: name=joe state=present
+    notify:
+    - echo
+  - name: install nano
+    apt: name=nano state=present
+  
+
+  handlers:
+    - name: echo
+      ping: 
+
+- hosts: control
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+  - name: Ping ping
+    ping:
+
+

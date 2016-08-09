@@ -1,0 +1,7 @@
+[camera] # Camera nodes - ingest workstations
+plugav1-1
+plugav1-2
+plugav1-3
+
+[control] # Stream controller/master
+avmaster
