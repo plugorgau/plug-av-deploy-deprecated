@@ -1,31 +1,17 @@
 ---
 # file: site.yml
-- hosts: camera
+- hosts: all
+  user: '{{ deploy_user }}'
   become: yes
   become_user: root
   become_method: sudo
 
- 
-  tasks:
-  - name: install joe
-    apt: name=joe state=present
-    notify:
-    - echo
-  - name: install nano
-    apt: name=nano state=present
-  
+  var_files:
+    - "vars/common.yml"
+    - [ "vars/{{ ansible_os_family }}.yml", "vars/os_defaults.yml" ]
 
-  handlers:
-    - name: echo
-      ping: 
+  roles:
+    - base
 
-- hosts: control
-  become: yes
-  become_user: root
-  become_method: sudo
-
-  tasks:
-  - name: Ping ping
-    ping:
-
-
+- include: camera.yml
+- include: control.yml
