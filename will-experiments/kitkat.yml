@@ -1,0 +1,11 @@
+---
+# possibly saved as tasks/foo.yml
+
+- name: placeholder foo
+  command: /bin/echo loldongs
+
+- name: placeholder bar
+  command: /bin/echo loldongs
+  register: expando
+- debug: msg="{{ expando.stdout }}"
+

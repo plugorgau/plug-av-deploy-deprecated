@@ -1,0 +1,25 @@
+---
+#Make cowsay things on remote host
+- hosts: control
+  remote_user: av
+  
+  vars:
+   dank: meme
+
+
+  tasks:
+    - name: Install cowsay 
+      become: yes
+      become_user: root
+      become_method: sudo
+      apt: name=cowsay state=latest
+
+    - name: Cowsay Hello
+      shell: /usr/games/cowsay {{ dank }}
+      register: Cowsay
+    - debug: msg="{{ Cowsay.stdout }}"
+    
+    - name: Allways Expand Your Dong
+      template: src=expanddongs.js dest=/home/av/Desktop/conf
+    
+    - include: kitkat.yml	
